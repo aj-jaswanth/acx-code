@@ -45,6 +45,14 @@ public class XmlElementTest {
         xmlElement.addChildElement(childXmlElement2);
 
         assertThat(xmlElement.toString(), is("<video>\n\t<length>60</length>\n\t<size>2480</size>\n</video>"));
+    }
 
+    @Test
+    public void shouldSetContentOfXmlElementAsValueWhenChildNodesArePresent() {
+        XmlElement xmlElement = new XmlElement("VIDEO", "future_of_programming.mp4", null);
+        XmlElement childXmlElement = new XmlElement("LENGTH", "60", null);
+        xmlElement.addChildElement(childXmlElement);
+
+        assertThat(xmlElement.toString(), is("<video value=\"future_of_programming.mp4\">\n\t<length>60</length>\n</video>"));
     }
 }
