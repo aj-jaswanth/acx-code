@@ -19,7 +19,7 @@ public class XmlElement {
         if (children.size() == 0)
             return String.format("<%s%s>%s</%s>", tag, getAttribute(), getContent(), tag);
         else
-            return String.format("<%s%s>\n%s\n</%s>", tag, getContent(), getChildrenXmlMarkup(), tag);
+            return String.format("<%s%s>%s</%s>", tag, getContent(), getChildrenXmlMarkup(), tag);
     }
 
     private String getContent() {
@@ -38,9 +38,9 @@ public class XmlElement {
     }
 
     private String getChildrenXmlMarkup() {
-        String markup = "";
+        String markup = "\n";
         for (XmlElement xmlElement : children) {
-            markup += "\t" + xmlElement.toString();
+            markup += "\t" + xmlElement.toString() + "\n";
         }
         return markup;
     }
