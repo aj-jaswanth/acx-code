@@ -8,8 +8,14 @@ import static org.junit.Assert.assertThat;
 public class XmlElementTest {
 
     @Test
-    public void shouldReturnElementWithNoEmptyContent() {
+    public void shouldReturnXmlElementWithNoEmptyContent() {
         XmlElement xmlElement = new XmlElement("TAG", "");
         assertThat(xmlElement.toString(), is("<TAG></TAG>"));
+    }
+
+    @Test
+    public void shouldReturnXmlElementWithContent() {
+        XmlElement xmlElement = new XmlElement("TAG", "content");
+        assertThat(xmlElement.toString(), is("<TAG>content</TAG>"));
     }
 }

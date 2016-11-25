@@ -11,6 +11,6 @@ public class XmlElement {
 
     @Override
     public String toString() {
-        return String.format("<%s></%s>", tag, tag);
+        return String.format("<%s>%s</%s>", tag, content, tag);
     }
 }
