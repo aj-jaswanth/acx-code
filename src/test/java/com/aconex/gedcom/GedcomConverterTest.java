@@ -65,4 +65,21 @@ public class GedcomConverterTest {
         verify(rootXmlElement, times(1)).addChildElement(any(XmlElement.class));
         verify(mockXmlElement, times(1)).addChildElement(any(XmlElement.class));
     }
+
+    @Test
+    public void shouldProperlyTraverseTheTreeUpwardsToInsertElementsInCorrectOrder() {
+        XmlElement mockXmlElement1 = mock(XmlElement.class);
+        when(gedcomParser.parse("TAG1 DATA1")).thenReturn(mockXmlElement1);
+        XmlElement mockXmlElement2 = mock(XmlElement.class);
+        when(gedcomParser.parse("TAG2 DATA2")).thenReturn(mockXmlElement2);
+        when(gedcomParser.parse("TAG3 DATA3")).thenReturn(new XmlElement("TAG3", "DATA3", null));
+        when(mockXmlElement1.getParent()).thenReturn(rootXmlElement);
+        when(mockXmlElement2.getParent()).thenReturn(mockXmlElement1);
+        gedcomConverter.process("0 TAG1 DATA1");
+        gedcomConverter.process("1 TAG2 DATA2");
+        gedcomConverter.process("0 TAG3 DATA3");
+
+        verify(rootXmlElement, times(2)).addChildElement(any(XmlElement.class));
+        verify(mockXmlElement1, times(1)).addChildElement(any(XmlElement.class));
+    }
 }
