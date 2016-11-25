@@ -10,12 +10,12 @@ public class XmlElementTest {
     @Test
     public void shouldReturnXmlElementWithNoEmptyContent() {
         XmlElement xmlElement = new XmlElement("TAG", "");
-        assertThat(xmlElement.toString(), is("<TAG></TAG>"));
+        assertThat(xmlElement.toString(), is("<tag></tag>"));
     }
 
     @Test
     public void shouldReturnXmlElementWithContent() {
         XmlElement xmlElement = new XmlElement("TAG", "content");
-        assertThat(xmlElement.toString(), is("<TAG>content</TAG>"));
+        assertThat(xmlElement.toString(), is("<tag>content</tag>"));
     }
 }

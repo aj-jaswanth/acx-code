@@ -5,7 +5,7 @@ public class XmlElement {
     private final String content;
 
     public XmlElement(String tag, String content) {
-        this.tag = tag;
+        this.tag = tag.toLowerCase();
         this.content = content;
     }
 
