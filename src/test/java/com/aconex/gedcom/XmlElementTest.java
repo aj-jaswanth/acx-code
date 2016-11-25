@@ -26,4 +26,13 @@ public class XmlElementTest {
 
         assertThat(xmlElement.toString(), is("<div height=\"21\">content</div>"));
     }
+
+    @Test
+    public void shouldFetchXmlMarkUpFromChildNodes() {
+        XmlElement xmlElement = new XmlElement("VIDEO", null, null);
+        XmlElement childXmlElement = new XmlElement("LENGTH", "60", null);
+        xmlElement.addChildElement(childXmlElement);
+
+        assertThat(xmlElement.toString(), is("<video>\n\t<length>60</length>\n</video>"));
+    }
 }
