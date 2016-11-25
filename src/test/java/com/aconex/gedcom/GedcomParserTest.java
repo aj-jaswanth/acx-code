@@ -21,4 +21,11 @@ public class GedcomParserTest {
 
         assertThat(xmlElement.toString(), is("<name>James Gordon</name>"));
     }
+
+    @Test
+    public void shouldParseLineHavingIdAndData() {
+        XmlElement xmlElement = gedcomParser.parse("@I1@ INDI");
+
+        assertThat(xmlElement.toString(), is("<indi id=\"@I1@\"></indi>"));
+    }
 }
