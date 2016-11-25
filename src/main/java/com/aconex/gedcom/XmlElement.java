@@ -7,6 +7,7 @@ public class XmlElement {
     private final String content;
     private String[] attribute;
     private ArrayList<XmlElement> children = new ArrayList<>();
+    private XmlElement parent;
 
     public XmlElement(String tag, String content, String[] attribute) {
         this.tag = tag.toLowerCase();
@@ -35,6 +36,7 @@ public class XmlElement {
 
     public void addChildElement(XmlElement xmlElement) {
         children.add(xmlElement);
+        xmlElement.setParent(this);
     }
 
     private String getChildrenXmlMarkup() {
@@ -49,5 +51,9 @@ public class XmlElement {
         if (content == null)
             return "";
         return String.format(" value=\"%s\"", content);
+    }
+
+    public void setParent(XmlElement parent) {
+        this.parent = parent;
     }
 }

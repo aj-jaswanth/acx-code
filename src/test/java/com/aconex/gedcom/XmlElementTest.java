@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class XmlElementTest {
 
@@ -54,5 +57,15 @@ public class XmlElementTest {
         xmlElement.addChildElement(childXmlElement);
 
         assertThat(xmlElement.toString(), is("<video value=\"future_of_programming.mp4\">\n\t<length>60</length>\n</video>"));
+    }
+
+    @Test
+    public void addingChildElementMustSetTheCurrentNodeAsItsParent() {
+        XmlElement xmlElement = new XmlElement("VIDEO", "future_of_programming.mp4", null);
+        XmlElement childXmlElement = mock(XmlElement.class);
+
+        xmlElement.addChildElement(childXmlElement);
+
+        verify(childXmlElement, times(1)).setParent(xmlElement);
     }
 }
