@@ -56,4 +56,8 @@ public class XmlElement {
     public void setParent(XmlElement parent) {
         this.parent = parent;
     }
+
+    public XmlElement getParent() {
+        return parent;
+    }
 }

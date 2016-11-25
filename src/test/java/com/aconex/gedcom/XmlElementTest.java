@@ -68,4 +68,13 @@ public class XmlElementTest {
 
         verify(childXmlElement, times(1)).setParent(xmlElement);
     }
+
+    @Test
+    public void shouldGetCorrectParentElementForAChildElement() {
+        XmlElement xmlElement = new XmlElement("VIDEO", "future_of_programming.mp4", null);
+        XmlElement childXmlElement = new XmlElement("LENGTH", "60", null);
+        xmlElement.addChildElement(childXmlElement);
+
+        assertThat(childXmlElement.getParent(), is(xmlElement));
+    }
 }

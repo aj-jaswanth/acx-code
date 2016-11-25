@@ -3,10 +3,14 @@ package com.aconex.gedcom;
 public class GedcomConverter {
     private GedcomParser gedcomParser;
     private XmlElement rootXmlElement;
+    private XmlElement currentElement;
+    private int currentDepth;
 
     public GedcomConverter(GedcomParser gedcomParser, XmlElement rootXmlElement) {
         this.gedcomParser = gedcomParser;
         this.rootXmlElement = rootXmlElement;
+        this.currentElement = rootXmlElement;
+        this.currentDepth = -1;
     }
 
     public String toXml() {
@@ -20,8 +24,13 @@ public class GedcomConverter {
         String gedcomLine = line.substring(spaceIndex + 1, line.length());
         XmlElement xmlElement = gedcomParser.parse(gedcomLine);
 
-        if (depth == 0) {
-            rootXmlElement.addChildElement(xmlElement);
+        while (currentDepth >= depth) {
+            currentDepth--;
+            currentElement = currentElement.getParent();
         }
+
+        currentElement.addChildElement(xmlElement);
+        currentElement = xmlElement;
+        currentDepth = depth;
     }
 }

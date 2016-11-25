@@ -42,12 +42,27 @@ public class GedcomConverterTest {
 
     @Test
     public void shouldAddXmlElementAsSiblingToTheRootElementIfLevelIsZeroForTwoConsecutiveEntries() {
-        when(gedcomParser.parse("TAG1 DATA1")).thenReturn(new XmlElement("TAG1", "DATA1", null));
-        when(gedcomParser.parse("TAG2 DATA2")).thenReturn(new XmlElement("TAG2", "DATA2", null));
+        XmlElement mockXmlElement = mock(XmlElement.class);
+        when(gedcomParser.parse("TAG1 DATA1")).thenReturn(mockXmlElement);
+        when(gedcomParser.parse("TAG2 DATA2")).thenReturn(mock(XmlElement.class));
+        when(mockXmlElement.getParent()).thenReturn(rootXmlElement);
 
         gedcomConverter.process("0 TAG1 DATA1");
         gedcomConverter.process("0 TAG2 DATA2");
 
         verify(rootXmlElement, times(2)).addChildElement(any(XmlElement.class));
+    }
+
+    @Test
+    public void shouldAddXmlElementAsChildToCurrentNodeIfLevelIncreasesSubsequently() {
+        XmlElement mockXmlElement = mock(XmlElement.class);
+        when(gedcomParser.parse("TAG1 DATA1")).thenReturn(mockXmlElement);
+        when(gedcomParser.parse("TAG2 DATA2")).thenReturn(new XmlElement("TAG2", "DATA2", null));
+
+        gedcomConverter.process("0 TAG1 DATA1");
+        gedcomConverter.process("1 TAG2 DATA2");
+
+        verify(rootXmlElement, times(1)).addChildElement(any(XmlElement.class));
+        verify(mockXmlElement, times(1)).addChildElement(any(XmlElement.class));
     }
 }
