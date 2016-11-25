@@ -18,4 +18,12 @@ public class XmlElementTest {
         XmlElement xmlElement = new XmlElement("TAG", "content");
         assertThat(xmlElement.toString(), is("<tag>content</tag>"));
     }
+
+    @Test
+    public void shouldReturnXmlElementWithAttribute() {
+        String[] attribute = {"height", "21"};
+        XmlElement xmlElement = new XmlElement("DIV", "content", attribute);
+
+        assertThat(xmlElement.toString(), is("<div height=\"21\">content</div>"));
+    }
 }
