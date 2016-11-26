@@ -13,13 +13,13 @@ public class XmlElementTest {
     @Test
     public void shouldReturnXmlElementWithNoContent() {
         XmlElement xmlElement = new XmlElement("TAG", null, null);
-        assertThat(xmlElement.toString(), is("<tag></tag>"));
+        assertThat(xmlElement.getXmlMarkup(0), is("<tag></tag>"));
     }
 
     @Test
     public void shouldReturnXmlElementWithContent() {
         XmlElement xmlElement = new XmlElement("TAG", "content", null);
-        assertThat(xmlElement.toString(), is("<tag>content</tag>"));
+        assertThat(xmlElement.getXmlMarkup(0), is("<tag>content</tag>"));
     }
 
     @Test
@@ -27,7 +27,7 @@ public class XmlElementTest {
         String[] attribute = {"height", "21"};
         XmlElement xmlElement = new XmlElement("DIV", "content", attribute);
 
-        assertThat(xmlElement.toString(), is("<div height=\"21\">content</div>"));
+        assertThat(xmlElement.getXmlMarkup(0), is("<div height=\"21\">content</div>"));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class XmlElementTest {
         XmlElement childXmlElement = new XmlElement("LENGTH", "60", null);
         xmlElement.addChildElement(childXmlElement);
 
-        assertThat(xmlElement.toString(), is("<video>\n\t<length>60</length>\n</video>"));
+        assertThat(xmlElement.getXmlMarkup(0), is("<video>\n\t<length>60</length>\n</video>"));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class XmlElementTest {
         xmlElement.addChildElement(childXmlElement1);
         xmlElement.addChildElement(childXmlElement2);
 
-        assertThat(xmlElement.toString(), is("<video>\n\t<length>60</length>\n\t<size>2480</size>\n</video>"));
+        assertThat(xmlElement.getXmlMarkup(0), is("<video>\n\t<length>60</length>\n\t<size>2480</size>\n</video>"));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class XmlElementTest {
         XmlElement childXmlElement = new XmlElement("LENGTH", "60", null);
         xmlElement.addChildElement(childXmlElement);
 
-        assertThat(xmlElement.toString(), is("<video value=\"future_of_programming.mp4\">\n\t<length>60</length>\n</video>"));
+        assertThat(xmlElement.getXmlMarkup(0), is("<video value=\"future_of_programming.mp4\">\n\t<length>60</length>\n</video>"));
     }
 
     @Test
@@ -76,5 +76,16 @@ public class XmlElementTest {
         xmlElement.addChildElement(childXmlElement);
 
         assertThat(childXmlElement.getParent(), is(xmlElement));
+    }
+
+    @Test
+    public void shouldProperlyIndentGeneratedXmlMarkupWithChildElements() {
+        XmlElement xmlElement = new XmlElement("VIDEO", "tesla_auto.mp4", null);
+        XmlElement lengthXmlElement = new XmlElement("LENGTH", "60", null);
+        XmlElement unitsXmlElement = new XmlElement("UNITS", "minutes", null);
+        xmlElement.addChildElement(lengthXmlElement);
+        lengthXmlElement.addChildElement(unitsXmlElement);
+
+        assertThat(xmlElement.getXmlMarkup(0), is("<video value=\"tesla_auto.mp4\">\n\t<length value=\"60\">\n\t\t<units>minutes</units>\n\t</length>\n</video>"));
     }
 }

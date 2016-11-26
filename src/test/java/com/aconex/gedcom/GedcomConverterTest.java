@@ -26,7 +26,7 @@ public class GedcomConverterTest {
 
     @Test
     public void shouldReturnXmlMarkUpOfRootXmlElement() {
-        when(rootXmlElement.toString()).thenReturn("<root></root>");
+        when(rootXmlElement.getXmlMarkup(0)).thenReturn("<root></root>");
 
         assertThat(gedcomConverter.toXml(), is("<root></root>"));
     }

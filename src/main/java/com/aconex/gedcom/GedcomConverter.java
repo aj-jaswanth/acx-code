@@ -14,7 +14,7 @@ public class GedcomConverter {
     }
 
     public String toXml() {
-        return rootXmlElement.toString();
+        return rootXmlElement.getXmlMarkup(0);
     }
 
     public void process(String line) {

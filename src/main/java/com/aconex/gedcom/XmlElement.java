@@ -15,12 +15,12 @@ public class XmlElement {
         this.attribute = attribute;
     }
 
-    @Override
-    public String toString() {
+    public String getXmlMarkup(int tabSize) {
+        String tabs = new String(new char[tabSize]).replace('\0', '\t');
         if (children.size() == 0)
-            return String.format("<%s%s>%s</%s>", tag, getAttribute(), getContent(), tag);
+            return String.format("%s<%s%s>%s</%s>", tabs, tag, getAttribute(), getContent(), tag);
         else
-            return String.format("<%s%s>%s</%s>", tag, getContentAsValueAttribute(), getChildrenXmlMarkup(), tag);
+            return String.format("%s<%s%s>%s%s</%s>", tabs, tag, getContentAsValueAttribute(), getChildrenXmlMarkup(tabSize + 1), tabs, tag);
     }
 
     private String getContent() {
@@ -39,10 +39,10 @@ public class XmlElement {
         xmlElement.setParent(this);
     }
 
-    private String getChildrenXmlMarkup() {
+    private String getChildrenXmlMarkup(int tabSize) {
         String markup = "\n";
         for (XmlElement xmlElement : children) {
-            markup += "\t" + xmlElement.toString() + "\n";
+            markup += xmlElement.getXmlMarkup(tabSize) + "\n";
         }
         return markup;
     }
@@ -53,11 +53,11 @@ public class XmlElement {
         return String.format(" value=\"%s\"", content);
     }
 
-    public void setParent(XmlElement parent) {
-        this.parent = parent;
-    }
-
     public XmlElement getParent() {
         return parent;
+    }
+
+    public void setParent(XmlElement parent) {
+        this.parent = parent;
     }
 }
