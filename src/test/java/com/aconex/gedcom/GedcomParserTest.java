@@ -28,4 +28,11 @@ public class GedcomParserTest {
 
         assertThat(xmlElement.toString(), is("<indi id=\"@I1@\"></indi>"));
     }
+
+    @Test
+    public void shouldParseLinesWithoutHavingData() {
+        XmlElement xmlElement = gedcomParser.parse("NAME");
+
+        assertThat(xmlElement.toString(), is("<name></name>"));
+    }
 }

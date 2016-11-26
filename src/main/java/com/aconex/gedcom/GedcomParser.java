@@ -3,10 +3,14 @@ package com.aconex.gedcom;
 public class GedcomParser {
 
     public XmlElement parse(String gedcomLine) {
-        int spaceIndex = gedcomLine.indexOf(' ');
-        String tag = gedcomLine.substring(0, spaceIndex);
-        String data = gedcomLine.substring(spaceIndex + 1, gedcomLine.length());
-
+        String tag, data = null;
+        if (gedcomLine.contains(" ")) {
+            int spaceIndex = gedcomLine.indexOf(' ');
+            tag = gedcomLine.substring(0, spaceIndex);
+            data = gedcomLine.substring(spaceIndex + 1, gedcomLine.length());
+        } else {
+            tag = gedcomLine;
+        }
         if (tag.matches("@.*@")) {
             return new XmlElement(data, null, new String[]{"id", tag});
         } else {
