@@ -88,4 +88,13 @@ public class XmlElementTest {
 
         assertThat(xmlElement.getXmlMarkup(0), is("<video value=\"tesla_auto.mp4\">\n\t<length value=\"60\">\n\t\t<units>minutes</units>\n\t</length>\n</video>"));
     }
+
+    @Test
+    public void shouldIncludeElementsAttributeAsWellAsItsContentAsValueAttributeWhenItHasChildren() {
+        XmlElement xmlElement = new XmlElement("VIDEO", "future_of_programming.mp4", new String[]{"id", "2dba-2asf"});
+        XmlElement childXmlElement = new XmlElement("LENGTH", "60", null);
+        xmlElement.addChildElement(childXmlElement);
+
+        assertThat(xmlElement.getXmlMarkup(0), is("<video value=\"future_of_programming.mp4\" id=\"2dba-2asf\">\n\t<length>60</length>\n</video>"));
+    }
 }

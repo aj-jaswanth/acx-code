@@ -20,7 +20,7 @@ public class XmlElement {
         if (children.size() == 0)
             return String.format("%s<%s%s>%s</%s>", tabs, tag, getAttribute(), getContent(), tag);
         else
-            return String.format("%s<%s%s>%s%s</%s>", tabs, tag, getContentAsValueAttribute(), getChildrenXmlMarkup(tabSize + 1), tabs, tag);
+            return String.format("%s<%s%s%s>%s%s</%s>", tabs, tag, getContentAsValueAttribute(), getAttribute(), getChildrenXmlMarkup(tabSize + 1), tabs, tag);
     }
 
     private String getContent() {
