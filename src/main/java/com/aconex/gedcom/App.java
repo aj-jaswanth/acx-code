@@ -7,10 +7,7 @@ import java.io.IOException;
 public class App {
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(args[0]))) {
-            GedcomParser gedcomParser = new GedcomParser();
-            XmlElement xmlElement = new XmlElement("GEDCOM", null, null);
-            GedcomConverter gedcomConverter = new GedcomConverter(gedcomParser, xmlElement);
-
+            GedcomConverter gedcomConverter = createGedcomConverter();
             String input;
             while ((input = br.readLine()) != null) {
                 if (!input.isEmpty()) {
@@ -19,5 +16,11 @@ public class App {
             }
             System.out.println(gedcomConverter.toXml());
         }
+    }
+
+    private static GedcomConverter createGedcomConverter() {
+        GedcomParser gedcomParser = new GedcomParser();
+        XmlElement xmlElement = new XmlElement("GEDCOM", null, null);
+        return new GedcomConverter(gedcomParser, xmlElement);
     }
 }
