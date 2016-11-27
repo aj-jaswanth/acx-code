@@ -13,7 +13,9 @@ public class App {
 
         String input;
         while ((input = br.readLine()) != null) {
-            gedcomConverter.process(input);
+            if (!input.isEmpty()) {
+                gedcomConverter.process(input);
+            }
         }
         System.out.println(gedcomConverter.toXml());
     }
