@@ -1,12 +1,13 @@
 package com.aconex.gedcom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class XmlElement {
     private final String tag;
     private final String content;
     private String[] attribute;
-    private ArrayList<XmlElement> children = new ArrayList<>();
+    private List<XmlElement> children = new ArrayList<>();
     private XmlElement parent;
 
     public XmlElement(String tag, String content, String[] attribute) {
@@ -15,12 +16,12 @@ public class XmlElement {
         this.attribute = attribute;
     }
 
-    public String getXmlMarkup(int tabSize) {
-        String tabs = new String(new char[tabSize]).replace('\0', '\t');
-        if (children.size() == 0)
+    public String getMarkup(int numberOfTabs) {
+        String tabs = new String(new char[numberOfTabs]).replace('\0', '\t');
+        if (children.isEmpty())
             return String.format("%s<%s%s>%s</%s>", tabs, tag, getAttribute(), getContent(), tag);
         else
-            return String.format("%s<%s%s%s>%s%s</%s>", tabs, tag, getContentAsValueAttribute(), getAttribute(), getChildrenXmlMarkup(tabSize + 1), tabs, tag);
+            return String.format("%s<%s%s%s>%s%s</%s>", tabs, tag, getContentAsValueAttribute(), getAttribute(), getChildrenMarkup(numberOfTabs + 1), tabs, tag);
     }
 
     private String getContent() {
@@ -34,15 +35,15 @@ public class XmlElement {
         return "";
     }
 
-    public void addChildElement(XmlElement xmlElement) {
+    public void addChild(XmlElement xmlElement) {
         children.add(xmlElement);
         xmlElement.setParent(this);
     }
 
-    private String getChildrenXmlMarkup(int tabSize) {
+    private String getChildrenMarkup(int numberOfTabs) {
         StringBuilder markup = new StringBuilder("\n");
         for (XmlElement xmlElement : children) {
-            markup.append(xmlElement.getXmlMarkup(tabSize)).append("\n");
+            markup.append(xmlElement.getMarkup(numberOfTabs)).append("\n");
         }
         return markup.toString();
     }

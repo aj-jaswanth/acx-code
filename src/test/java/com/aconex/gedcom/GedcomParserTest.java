@@ -19,20 +19,20 @@ public class GedcomParserTest {
     public void shouldParseLineHavingTagAndData() {
         XmlElement xmlElement = gedcomParser.parse("NAME James Gordon");
 
-        assertThat(xmlElement.getXmlMarkup(0), is("<name>James Gordon</name>"));
+        assertThat(xmlElement.getMarkup(0), is("<name>James Gordon</name>"));
     }
 
     @Test
     public void shouldParseLineHavingIdAndData() {
         XmlElement xmlElement = gedcomParser.parse("@I1@ INDI");
 
-        assertThat(xmlElement.getXmlMarkup(0), is("<indi id=\"@I1@\"></indi>"));
+        assertThat(xmlElement.getMarkup(0), is("<indi id=\"@I1@\"></indi>"));
     }
 
     @Test
     public void shouldParseLinesWithoutHavingData() {
         XmlElement xmlElement = gedcomParser.parse("NAME");
 
-        assertThat(xmlElement.getXmlMarkup(0), is("<name></name>"));
+        assertThat(xmlElement.getMarkup(0), is("<name></name>"));
     }
 }

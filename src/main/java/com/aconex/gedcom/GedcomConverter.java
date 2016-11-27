@@ -14,7 +14,7 @@ public class GedcomConverter {
     }
 
     public String toXml() {
-        return rootXmlElement.getXmlMarkup(0);
+        return rootXmlElement.getMarkup(0);
     }
 
     public void process(String line) {
@@ -29,7 +29,7 @@ public class GedcomConverter {
             currentElement = currentElement.getParent();
         }
 
-        currentElement.addChildElement(xmlElement);
+        currentElement.addChild(xmlElement);
         currentElement = xmlElement;
         currentDepth = depth;
     }

@@ -26,7 +26,7 @@ public class GedcomConverterTest {
 
     @Test
     public void shouldReturnXmlMarkUpOfRootXmlElement() {
-        when(rootXmlElement.getXmlMarkup(0)).thenReturn("<root></root>");
+        when(rootXmlElement.getMarkup(0)).thenReturn("<root></root>");
 
         assertThat(gedcomConverter.toXml(), is("<root></root>"));
     }
@@ -37,7 +37,7 @@ public class GedcomConverterTest {
 
         gedcomConverter.process("0 TAG DATA");
 
-        verify(rootXmlElement, times(1)).addChildElement(any(XmlElement.class));
+        verify(rootXmlElement, times(1)).addChild(any(XmlElement.class));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class GedcomConverterTest {
         gedcomConverter.process("0 TAG1 DATA1");
         gedcomConverter.process("0 TAG2 DATA2");
 
-        verify(rootXmlElement, times(2)).addChildElement(any(XmlElement.class));
+        verify(rootXmlElement, times(2)).addChild(any(XmlElement.class));
     }
 
     @Test
@@ -62,8 +62,8 @@ public class GedcomConverterTest {
         gedcomConverter.process("0 TAG1 DATA1");
         gedcomConverter.process("1 TAG2 DATA2");
 
-        verify(rootXmlElement, times(1)).addChildElement(any(XmlElement.class));
-        verify(mockXmlElement, times(1)).addChildElement(any(XmlElement.class));
+        verify(rootXmlElement, times(1)).addChild(any(XmlElement.class));
+        verify(mockXmlElement, times(1)).addChild(any(XmlElement.class));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class GedcomConverterTest {
         gedcomConverter.process("1 TAG2 DATA2");
         gedcomConverter.process("0 TAG3 DATA3");
 
-        verify(rootXmlElement, times(2)).addChildElement(any(XmlElement.class));
-        verify(mockXmlElement1, times(1)).addChildElement(any(XmlElement.class));
+        verify(rootXmlElement, times(2)).addChild(any(XmlElement.class));
+        verify(mockXmlElement1, times(1)).addChild(any(XmlElement.class));
     }
 }
