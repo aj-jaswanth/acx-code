@@ -40,11 +40,11 @@ public class XmlElement {
     }
 
     private String getChildrenXmlMarkup(int tabSize) {
-        String markup = "\n";
+        StringBuilder markup = new StringBuilder("\n");
         for (XmlElement xmlElement : children) {
-            markup += xmlElement.getXmlMarkup(tabSize) + "\n";
+            markup.append(xmlElement.getXmlMarkup(tabSize)).append("\n");
         }
-        return markup;
+        return markup.toString();
     }
 
     public String getContentAsValueAttribute() {
