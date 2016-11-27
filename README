@@ -1,0 +1,25 @@
+1. Why is the current problem chosen?
+   I read all the three problems. "Vehicle Survey" problem is focused on data analysis, "1800 Phone Number" problem is a good one related to finding possible solutions
+   in the dictionary and "GEDCOM Parser" challenge is related to converting data from native GEDCOM format to XML. I chose to solve "GEDCOM Parser" challenge because,
+   I as a developer took most of the JSON parsing libraries for granted. We normally use Jackson library to parse JSON data in Java. This challenge resembled writing
+   a similar one. I decided to solve this problem as it gives me an opportunity to solve a conversion problem, which is very common in backend systems. Speed and efficiency
+   are very important, code should be designed well, tests should be perfect, so that we don't land into regression bugs when adding new specifications.
+
+3. I followed TDD while solving the challenge. Writing a test first to add a specification and then writing code to implement the specification.
+   Code coverage is at 100%. The design is very simple.
+    a. I started with XmlElement. XmlElement represents an element in the XML output. It has tag, content, attribute, children.
+    b. GedcomParser converts the given input line into a domain object of XmlElement based on the rules given in the problem.
+    c. GedcomConverter consumes gedcom data line by line and builds a tree of XmlElements. We make use of the tree nature of XML documents and recursively generate XML.
+    d. App is the entry point of the application. It handles reading input file, initializing the GedcomConverter, sending input to the GedcomConverter and printing XML output.
+
+3. I included the ".git" directory also. You can run "git log" or use any GUI tool to see the commits. You can follow them to understand how the code evolved.
+
+4. Details on how to run :
+     - I used Java 7 language.
+     - Build tool used is Maven
+     - Version Control System used is Git
+     - To run the application.
+        a) Run "mvn package" to compile the code, run tests and package the application.
+        b) Run "java -cp target/gedcom-1.0-SNAPSHOT.jar com.aconex.gedcom.App gedcom_input.txt" to run the application. Output will be printed to the console.
+
+5. Including the generated XML for sample input file gedcom_input.txt at gedcom_output.xml.
