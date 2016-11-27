@@ -1,6 +1,8 @@
 package com.aconex.gedcom;
 
 public class GedcomConverter {
+    public static final int DEPTH_OF_ROOT_XML_ELEMENT = -1;
+
     private GedcomParser gedcomParser;
     private XmlElement rootXmlElement;
     private XmlElement currentElement;
@@ -10,7 +12,7 @@ public class GedcomConverter {
         this.gedcomParser = gedcomParser;
         this.rootXmlElement = rootXmlElement;
         this.currentElement = rootXmlElement;
-        this.currentDepth = -1;
+        this.currentDepth = DEPTH_OF_ROOT_XML_ELEMENT;
     }
 
     public String toXml() {
